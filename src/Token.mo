@@ -32,6 +32,7 @@ shared ({ caller = _owner }) actor class Token  (args: ?{
 
 
     let Map = ICRC2.Map;
+    let Set = ICRC2.Set;
 
     D.print("loading the state");
     let manager = ClassPlus.ClassPlusInitializationManager(_owner, Principal.fromActor(this), true);
@@ -434,6 +435,40 @@ shared ({ caller = _owner }) actor class Token  (args: ?{
 
     
   };
+
+  
+
+  public shared({caller}) func update_archive_controllers() : async () {
+    if(_owner != caller){ D.trap("Unauthorized")};
+    
+      for (archive in Map.keys(icrc3().get_state().archives)){
+        switch(icrc3().get_state().constants.archiveProperties.archiveControllers){
+          case(?val){
+            let final_list = switch(val){
+              case(?list){
+                let a_set = Set.fromIter<Principal>(list.vals(), Map.phash);
+                Set.add(a_set, Map.phash, Principal.fromActor(this));
+                Set.add(a_set, Map.phash, _owner);
+                ?Set.toArray(a_set);
+              };
+              case(null){
+                ?[Principal.fromActor(this), _owner];
+              };
+            };
+            let ic : ICRC3.IC = actor("aaaaa-aa");
+            ignore ic.update_settings(({canister_id = archive; settings = {
+                      controllers = final_list;
+                      freezing_threshold = null;
+                      memory_allocation = null;
+                      compute_allocation = null;
+            }}));
+          };
+          case(_){};    
+        };
+      };
+
+  };
+  
 
   stable var icrc106IndexCanister : ?Principal = null;
 
