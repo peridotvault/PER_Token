@@ -1,43 +1,20 @@
 {
-    "version": 1,
-    "canisters": {
-        
-        "token": {
-          "type": "motoko",
-          "main": "src/Token.mo",
-          "args": "-v --incremental-gc"
-        },
-        "prodtoken": {
-          "type": "motoko",
-          "gzip": true,
-          "main": "src/Token.mo",
-          "args": "--incremental-gc --release"
-        },
-        "allowlist": {
-          "type": "motoko",
-          "main": "src/examples/Allowlist.mo",
-          "args": "-v --incremental-gc"
-        },
-        "lotto": {
-          "type": "motoko",
-          "main": "src/examples/Lotto.mo",
-          "args": "-v --incremental-gc"
-        },
-         "sns": {
-          "type": "motoko",
-          "main": "src/snstest.mo",
-          "args": "-v --incremental-gc",
-          "gzip": true
-        }
-    },
-    "defaults": {
-        "build": {
-            "packtool": "mops sources",
-            "args": ""
-        },
-        "replica": {
-          "subnet_type": "system"
-      }
+  "version": 1,
+  "canisters": {
+    "prodtoken": {
+      "type": "motoko",
+      "gzip": true,
+      "main": "src/Token.mo",
+      "args": "--incremental-gc --release"
     }
-    
+  },
+  "defaults": {
+    "build": {
+      "packtool": "mops sources",
+      "args": ""
+    },
+    "replica": {
+      "subnet_type": "system"
+    }
+  }
 }

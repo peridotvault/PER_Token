@@ -1,0 +1,19 @@
+[package]
+name = "stable-write-only"
+version = "0.1.1"
+description = "Manages a write-only stable memory stream"
+repository = "https://github.com/skilesare/StableWriteOnly.mo"
+keywords = [ "stable", "memory" ]
+license = "MIT"
+
+[dependencies]
+vector = "0.2.0"
+base = "0.10.1"
+
+[dev-dependencies]
+test = "1.0.1"
+fuzz = "0.1.0"
+matchers = "https://github.com/kritzcreek/motoko-matchers#v1.3.0@3dac8a071b69e4e651b25a7d9683fe831eb7cffd"
+
+[toolchain]
+moc = "0.10.1"
